@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Django Highcharts Example</title>
+</head>
+<body>
+  <a href="{% url 'home' %}">Return to homepage</a>
+  <div id="container"></div>
+  <script src="https://code.highcharts.com/highcharts.src.js"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+  <script>
+    Highcharts.chart('container', {
+    chart: {
+        zoomType: 'xy'
+    },
+    title: {
+        text: 'Titanic Survivors by Ticket Class'
+    },
+    subtitle: {
+        text: 'Source: WorldClimate.com'
+    },
+    xAxis: {
+            categories: [
+              {% for entry in dataset %}
+                '{{ entry.ticket_class }} Class'{% if not forloop.last %}, {% endif %}
+              {% endfor %}
+            ]
+        },
+
+
+    series: [{
+            name: 'Survived',
+	    type : 'column',
+            data: [
+              {% for entry in dataset %}
+                {{ entry.survived_count }}{% if not forloop.last %}, {% endif %}
+              {% endfor %}
+            ],
+            color: 'green'
+        }, {
+            name: 'Not survived',
+            data: [
+              {% for entry in dataset %}
+                {{ entry.not_survived_count }}{% if not forloop.last %}, {% endif %}
+              {% endfor %}
+            ],
+            color: 'red'
+        }], {
+        name: 'Temperature',
+        type: 'spline',
+        data: [
+              {% for entry in dataset %}
+                {{ entry.survived_count }}{% if not forloop.last %}, {% endif %}
+              {% endfor %}
+            ],
+            color : 'blue'
+        }
+    }]
+});
+
+  </script>
+</body>
+</html>

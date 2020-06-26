@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Django Highcharts Example</title>
+</head>
+<body>
+    <a href="{% url 'home' %}">Return to homepage</a>
+    <div id="container"></div>
+    <script src="https://code.highcharts.com/highcharts.src.js"></script>
+<!--    <script src="https://code.highcharts.com/highcharts.js"></script>-->
+<!--    <script src="https://code.highcharts.com/highcharts-3d.js"></script>-->
+<!--    <script src="https://code.highcharts.com/modules/exporting.js"></script>-->
+<!--    <script src="https://code.highcharts.com/modules/export-data.js"></script>-->
+<!--    <script src="https://code.highcharts.com/modules/accessibility.js"></script>-->
+    <script>
+        Highcharts.chart('container', {  /*json 을 이용하여 html 이 간결해졌다*/
+            chart: {
+                // type: 'spline',
+                // options3d: {
+                //     enabled: true,
+                //     alpha: 10,
+                //     beta: 25,
+                //     depth: 70
+                // }
+            },
+            title: {
+                text: 'Titanic Survivors by Ticket Class'
+            },
+            xAxis: {
+                categories: {{ categories|safe }} /* safe 필터 */
+            },
+            series: [{
+                name: 'Survived',
+                data: {{ survived_series }},
+                color: 'green'
+            }, {
+                name: 'Not survived',
+                data: {{ not_survived_series }},
+                color: 'red'
+            }]
+        });
+    </script>
+</body>
+</html>

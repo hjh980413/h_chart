@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Highcharts Example</title>
+</head>
+<body>
+  <div id="container"></div>
+<!--container 라는 이름으로 그려야한다 id 이기 때문에-->
+  <script src="https://code.highcharts.com/highcharts.src.js"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/series-label.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+    <figure class="highcharts-figure">
+    <p class="highcharts-description">
+        Basic line chart showing trends in a dataset. This chart includes the
+        <code>series-label</code> module, which adds a label to each line for
+        enhanced readability.
+    </p>
+    </figure>
+    <!--하이차트를 그리는데 필요한 하이차트사이트에서 제공하는 코드 다른 작업을 하기 위해 또 다른 코드를 넣기도 한다.-->
+  <script>
+    Highcharts.chart('container', {
+
+    title: {
+        text: 'covid19'
+    },
+
+    yAxis: {
+        title: {
+            text: 'Death',
+            format : '{value}set_major_formatter(ticker.StrMethodFormatter(\'{x:,.0f}\'))'
+        }
+    },
+
+    xAxis: {
+        title:{
+          format : 'country'
+        }
+    },
+
+    legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'middle'
+    },
+
+    plotOptions: {
+        series: {
+            label: {
+                connectorAllowed: false
+            },
+            pointStart: 2010
+        }
+    },
+
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
+});
+      /*세미콜론으로 끝나는건 자바 스크립트, 내부 파이썬에 사전모형이다. name 키와 data 키가 있다.*/
+  </script>
+</body>
+</html>
